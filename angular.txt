@@ -1,0 +1,180 @@
+angular.txt
+
+
+Pradeep Notes
+----------------------------
+
+Practice Excercise
+
+https://jcoop.io/angular-practice-exercises/
+
+TypeScript
+
+Static Typing 
+-------------
+let name: string
+age: number
+
+Interfaces
+-----------
+Interface Person{
+	name:string
+	age:number
+	gender?:string //optional property
+};
+
+let pradeep: Person;
+
+pradeep = {
+	name: 'Pradeep'
+	age: '32' //fails age is a string value it should be number .It should set all attributes
+}
+
+Class
+-----
+
+Class Cat{
+	name: string
+	constructor(name){
+		this.name = name
+	}
+
+}
+
+Accessibility
+--------------
+
+Public and Private
+-------------------
+Class is properties are public by default
+
+
+Class Cat{
+	private name: string
+	constructor(name){
+		this.name = name
+	}
+	private sayname(){console.log('My name is'+ this.name)}
+
+}
+
+let fliffy = new Cat()
+console.log(fluffy.name); // compile-time error
+console.log(fluffy.speak()); // compile-time error
+
+
+Short cut
+
+Class Cat{
+	constuctor(private name){}  // creates a private property name and constructor assign default values paasewd in constructor while creating the object..but very easy coding.
+
+
+}
+
+let fluffy = new Cat('Browny');
+
+
+AngularJS vs Angular(2+)
+
+AngularJS is a MVC pattern or framework with View(template)  refer to a controller. Controller would expose model(data objects)
+
+Angular is component assisiated with a template  and model represents data. Component can have the template and model together if yopu choose.it is like angualrjs directive.
+
+
+Angular(2+)
+
+Root com.  then angulare route looks at the URL and finds the route mathing com . then loads that com.
+
+component can have a template and model. A complex component can have many sub coms. This creates a tree like strcture of coms.
+
+If user navigates to the other URL only the root com remains and rest replaced with another tree of coms. 
+
+All tree are stored in meemory
+
+
+To solve this angular module(ngModule) is introduced. we can define the com tree as a module and the requred modules are loaded to the memory as needed.
+
+You can reister the com,services, directive or Pipe register with in a module. But service(privider) get registered to root injector.so it is avilable to all.
+
+
+GIT hub URL : https://github.com/jmcooper/angular-fundamentals-files.git
+DEV tools required
+
+-----------------------
+
+Install GIT
+Node version manager(nvm) --can select differnt node versrions
+
+Install Node using the command
+---
+nvm install node version
+
+
+install angular CLI using the command
+---
+npm install -g @angular/cli
+
+create a new angaulr project
+-------------
+
+ng new ng-fundamantals
+
+Bootstrapping process
+-------------------
+main.ts loaded is by web pack via  angular.json file
+main.ts loads the app.module.ts.
+This makes aware of the app component.
+Then index.html file loads the app component
+
+angular module app.module.ts
+-------------------------
+@NgMdule({
+	declarations: [
+		component,
+		pipe,
+		directive
+	],
+	imports: [
+		Modules
+	],
+	providers:[
+		service
+	],
+	bootstap: [whichcomponenttobootstap]
+})
+
+
+Adding static files(images.css etc)
+
+--------------------
+
+
+assets folder add images folder-- download from git of tutor
+
+app.component.ts
+---------------
+
+add a image on html  -- reltive path defined in angualr.json defines assets array
+
+<img src="/assets/images/basic-mag.png"/>
+
+
+styles and scripts path also can be defined
+
+
+Installing bootstap
+----------------------
+
+npm install ngf-bootstarp --save
+add style and scripts to angular.json
+
+"styles": [
+	"node_modules/ngf-bootstap/app/dist/bootstrap.min.css"
+],
+"scripts": [
+	"node_modules/ngf-bootstap/app/dist/juquery.min.js",
+	"node_modules/ngf-bootstap/app/dist/JS/bootstrap.js"
+]
+
+
+
