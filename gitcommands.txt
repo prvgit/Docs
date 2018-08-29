@@ -1,0 +1,15 @@
+GIT commands
+---------------
+$ git clone "https://github.com/prvgit/Docs.git"
+
+
+$ git status
+
+
+$ git add *
+
+
+*** Please tell me who you are.
+
+$ git config --global user.email "pradeeprv@gmail.com"
+$ git config --global user.name "prvgit"
