@@ -1,4 +1,4 @@
-MongoDB Quich Access
+Mongo DB Quich Access (What? So what? Now what?) (Problem-Solution-Benefit) (Past-Present-Future) (Outline Your Talk Using Questions)(Include an Emotional Hook) (Don't momorize) (connect to audience using qns: “How many of you have ever been stung by a honeybee?”)
 -------------------------
 mongo.exe
   -is an interactive JavaScript shell interface to MongoDB
@@ -28,3 +28,159 @@ Connect to Mongo Console
 5. To use a DB, tye use <dbname> //eg: use testDB output: switched to testDB
 6. To list all collections on a DB ,type db.getCollectionNames()  OR show collections
 7. To list all docuemtns on a collection, type db.<collectionname>.find()[.pretty()]   // [] used to repersent optional part
+
+
+
+NODEJS DRIVERS
+==================
+
+ 1. MongoDB
+ 
+ The official MongoDB Node.js driver provides both callback-based and Promise-based interaction with MongoDB, allowing applications to take full advantage of the new features in ES6
+ Create Connection:
+ ---------
+  const MongoClient = require('mongodb').MongoClient;
+  const assert = require('assert');
+
+  // Connection URL
+  const url = 'mongodb://localhost:27017';
+
+  // Database Name
+  const dbName = 'myproject';
+
+  // Use connect method to connect to the server
+  MongoClient.connect(url, function(err, client) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+
+    const db = client.db(dbName);
+
+    insertDocuments(db, function() {
+      client.close();
+    });
+    
+    updateDocument(db, function() {
+      client.close();
+    });
+    
+    indexCollection(db, function() {
+      client.close();
+    });
+    
+    findDocuments(db, function() {
+      client.close();
+    });
+    
+    removeDocument(db, function() {
+        client.close();
+     });
+    
+
+  });
+  
+  Insert Documents
+  ---------------
+  
+
+const insertDocuments = function(db, callback) {
+  // Get the documents collection
+  const collection = db.collection('documents');
+  // Insert some documents
+  collection.insertMany([
+    {a : 1}, {a : 2}, {a : 3}
+  ], function(err, result) {
+    assert.equal(err, null);
+    assert.equal(3, result.result.n);
+    assert.equal(3, result.ops.length);
+    console.log("Inserted 3 documents into the collection");
+    callback(result);
+  });
+}
+
+
+Find Documents
+---------------
+
+const findDocuments = function(db, callback) {
+  // Get the documents collection
+  const collection = db.collection('documents');
+  // Find some documents
+  collection.find({}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    console.log("Found the following records");
+    console.log(docs)
+    callback(docs);
+  });
+}
+
+const findDocuments = function(db, callback) {
+  // Get the documents collection
+  const collection = db.collection('documents');
+  // Find some documents
+  collection.find({'a': 3}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    console.log("Found the following records");
+    console.log(docs);
+    callback(docs);
+  });
+}
+
+update a document
+------------------
+const updateDocument = function(db, callback) {
+  // Get the documents collection
+  const collection = db.collection('documents');
+  // Update document where a is 2, set b equal to 1
+  collection.updateOne({ a : 2 }
+    , { $set: { b : 1 } }, function(err, result) {
+    assert.equal(err, null);
+    assert.equal(1, result.result.n);
+    console.log("Updated the document with the field a equal to 2");
+    callback(result);
+  });  
+}
+
+Remove a document
+-----------------
+const removeDocument = function(db, callback) {
+  // Get the documents collection
+  const collection = db.collection('documents');
+  // Delete document where a is 3
+  collection.deleteOne({ a : 3 }, function(err, result) {
+    assert.equal(err, null);
+    assert.equal(1, result.result.n);
+    console.log("Removed the document with the field a equal to 3");
+    callback(result);
+ });    
+  
+  Index a Collection
+  -------------------  
+  const indexCollection = function(db, callback) {
+  db.collection('documents').createIndex(
+      { "a": 1 },
+        null,
+        function(err, results) {
+          console.log(results);
+          callback();
+      }
+    );
+  };
+
+
+ 2. Mongose
+ 
+ Connect
+ -------------
+ //Import the mongoose module
+var mongoose = require('mongoose');
+
+//Set up default mongoose connection
+var mongoDB = 'mongodb://127.0.0.1/my_database';
+mongoose.connect(mongoDB);
+// Get Mongoose to use the global promise library
+mongoose.Promise = global.Promise;
+//Get the default connection
+var db = mongoose.connection;
+
+//Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
