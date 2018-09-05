@@ -1,0 +1,17 @@
+MongoDB Quich Access
+-------------------------
+
+Start Service 
+---------------
+Go to Windows service and start service
+
+Connect to Mongo Console
+----------------------
+
+1. Go to MongoDB install folder /bin
+2. run mongo 
+3. To display the database you are using, type db  //output test
+4. To view all databases use show dbs 
+5. To use a DB, tye use <dbname> //eg: use testDB output: switched to testDB
+6. To list all collections on a DB ,type db.getCollectionNames()
+7. To list all docuemtns on a collection, type db.<collectionname>.find()[.pretty()]   // [] used to repersent optional part
